@@ -383,17 +383,18 @@ func (s *Service) ImportFromFile(path string) error{
 					
 			}
 					
-			if (ind1 == 0) && (ind ==2) {
-				log.Print(account)
-				s.accounts = append(s.accounts, account)		
-			}  
+			// if (ind1 == 0) && (ind ==2) {
+				log.Print(ind1)
+			// 	s.accounts = append(s.accounts, account)		
+			// }  
 
-			if (ind1 == 1) && (ind ==2) {
-				log.Print(account)
-				s.accounts = append(s.accounts, account)		
-			} 
+			// if (ind1 == 1) && (ind ==2) {
+			// 	log.Print(account)
+			// 	s.accounts = append(s.accounts, account)		
+			// } 
+
 		}
-		
+		s.accounts = append(s.accounts, account)
 	}
 	
 	
