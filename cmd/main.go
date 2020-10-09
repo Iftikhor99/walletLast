@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Iftikhor99/wallet/v1/pkg/types"
+//	"github.com/Iftikhor99/wallet/v1/pkg/types"
 //	"strings"
 //	"strconv"
 //	"io"
@@ -14,42 +14,42 @@ import (
 
 func main() {
 	svc := &wallet.Service{}
-	accountTest , err := svc.RegisterAccount("+992000000001")
-	if err != nil {
-		fmt.Println(err)
-		return
-	} 
+	// accountTest , err := svc.RegisterAccount("+992000000001")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// } 
 
-	err = svc.Deposit(accountTest.ID, 100_000_00)
-	if err != nil {
-		switch err {
-		case wallet.ErrAmountMustBePositive:
-			fmt.Println("Сумма должна быть положительной")
-		case wallet.ErrAccountNotFound:
-			fmt.Println("Аккаунт пользователя не найден")		
-		}		
-		return
-	}
-	fmt.Println(accountTest.Balance)
+	// err = svc.Deposit(accountTest.ID, 100_000_00)
+	// if err != nil {
+	// 	switch err {
+	// 	case wallet.ErrAmountMustBePositive:
+	// 		fmt.Println("Сумма должна быть положительной")
+	// 	case wallet.ErrAccountNotFound:
+	// 		fmt.Println("Аккаунт пользователя не найден")		
+	// 	}		
+	// 	return
+	// }
+	// fmt.Println(accountTest.Balance)
 
 	
-	accountTest , err = svc.RegisterAccount("+992000000002")
-	if err != nil {
-		fmt.Println(err)
-		return
-	} 
+	// accountTest , err = svc.RegisterAccount("+992000000002")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// } 
 
-	err = svc.Deposit(accountTest.ID, 200_000_00)
-	if err != nil {
-		switch err {
-		case wallet.ErrAmountMustBePositive:
-			fmt.Println("Сумма должна быть положительной")
-		case wallet.ErrAccountNotFound:
-			fmt.Println("Аккаунт пользователя не найден")		
-		}		
-		return
-	}
-	fmt.Println(accountTest.Balance)
+	// err = svc.Deposit(accountTest.ID, 200_000_00)
+	// if err != nil {
+	// 	switch err {
+	// 	case wallet.ErrAmountMustBePositive:
+	// 		fmt.Println("Сумма должна быть положительной")
+	// 	case wallet.ErrAccountNotFound:
+	// 		fmt.Println("Аккаунт пользователя не найден")		
+	// 	}		
+	// 	return
+	// }
+	// fmt.Println(accountTest.Balance)
 
 
 	// newP, ee2 := svc.Pay(account.ID,10_000_00,"food")
@@ -82,32 +82,26 @@ func main() {
 
 	// fmt.Println(account.Balance)
 
-	err = svc.ImportFromFile("data/readme.txt")
+	err := svc.ImportFromFile("data/readme.txt")
 	log.Print(err)
 
 	err = svc.ExportToFile("data/message.txt")
 	log.Print(err)
+
+	err = svc.Deposit(4, 200_000_00)
+	if err != nil {
+		switch err {
+		case wallet.ErrAmountMustBePositive:
+			fmt.Println("Сумма должна быть положительной")
+		case wallet.ErrAccountNotFound:
+			fmt.Println("Аккаунт пользователя не найден")		
+		}		
+		return
+	}
+
+	newP2, ee3 := svc.FindAccountByID(4)
+	fmt.Println(newP2)
+	fmt.Println(ee3)
 	
-	type testAccount struct {
-		phone types.Phone
-		balance types.Money
-		payments []struct {
-			amount types.Money
-			category types.PaymentCategory
-		}
-	}
-	var defaultTestAccount = testAccount{
-		phone: "+992000000001",
-		balance: 10_000_00,
-		payments: []struct {
-			amount types.Money
-			category types.PaymentCategory
-		}{
-			{amount: 1_000_00, category: "auto"},
-		},
-	}
-
-	log.Print(defaultTestAccount)
-
 
 }
