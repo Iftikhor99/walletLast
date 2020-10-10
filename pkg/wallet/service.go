@@ -267,7 +267,7 @@ func (s *Service) ExportToFile(path string) error{
 	fileNew, err := os.Create(path)
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 
 	defer func() {
@@ -284,7 +284,7 @@ func (s *Service) ExportToFile(path string) error{
 		_, err = fileNew.Write([]byte("|"))
 		if err != nil {
 			log.Print(err)
-			
+			return err
 		}
 		
 	}
@@ -292,36 +292,36 @@ func (s *Service) ExportToFile(path string) error{
 	_, err = fileNew.Write([]byte(strconv.FormatInt((account.ID), 10)))
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 
 	_, err = fileNew.Write([]byte(";"))
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 	_, err = fileNew.Write([]byte(string(account.Phone)))
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 
 	_, err = fileNew.Write([]byte(";"))
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 
 	_, err = fileNew.Write([]byte(strconv.FormatInt(int64(account.Balance), 10)))
 	if err != nil {
 		log.Print(err)
-		
+		return err
 	}
 
 
 	}
 
-	return err
+	return nil
 
 }
 
@@ -341,7 +341,7 @@ func (s *Service) ImportFromFile(path string) error{
 		}
 	}()
 
-	log.Printf("%#v", file)
+//	log.Printf("%#v", file)
 
 	content := make([]byte, 0)
 	buf := make([]byte, 4)
@@ -372,7 +372,7 @@ func (s *Service) ImportFromFile(path string) error{
 		newData2 := strings.Split(stroka, ";")
 		log.Print(newData2[0])
 
-		account, err := s.RegisterAccount (types.Phone(newData2[1]))
+		account, err := s.RegisterAccount(types.Phone(newData2[1]))
 		if err != nil {
 			return	fmt.Errorf("can't register account, error = %v", err)
 		}
