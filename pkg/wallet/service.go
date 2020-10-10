@@ -357,12 +357,12 @@ func (s *Service) ImportFromFile(path string) error{
 	newData := strings.Split(data, "|")
 	log.Print(data)
 	log.Print(newData)
-	
+	account := &types.Account {
+	}
 	
 	for ind1, stroka := range newData {
 		log.Print(stroka)
-		account := &types.Account {
-		}	
+			
 		newData2 := strings.Split(stroka, ";")
 		log.Print(newData2[0])
 		
