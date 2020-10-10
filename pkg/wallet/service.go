@@ -402,6 +402,6 @@ func (s *Service) ImportFromFile(path string) error{
 	}
 	
 	
-	return err
+	return nil
 
 }
