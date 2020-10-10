@@ -362,27 +362,19 @@ func (s *Service) ImportFromFile(path string) error{
 	for ind1, stroka := range newData {
 		log.Print(stroka)
 		account := &types.Account {
-			ID: 	0,
-			Phone: 	"",
-			Balance: 0,
 		}	
 		newData2 := strings.Split(stroka, ";")
-		for ind, stroka2 := range newData2 {
-			
-			log.Print(stroka2)
-			if ind == 0{
-				id, _ := strconv.ParseInt(stroka2, 10, 64)
-				account.ID = id
-			}
-			if ind == 1{
-				account.Phone = types.Phone(stroka2)
-			}
-			if ind == 2{
-				balance, _ := strconv.ParseInt(stroka2, 10, 64)
-				account.Balance = types.Money(balance)
-					
-			}
-					
+		log.Print(newData2[0])
+		
+			//	id, _ := strconv.ParseInt(stroka2, 10, 64)
+				account.ID, _ = strconv.ParseInt(newData2[0], 10, 64) 
+		
+			//	account.Phone = types.Phone(stroka2)
+				account.Phone = types.Phone(newData2[1])
+				//balance, _ := strconv.ParseInt(stroka2, 10, 64)
+				//account.Balance = types.Money(balance)
+				balance, _ := strconv.ParseInt(newData2[2], 10, 64)
+				account.Balance = types.Money(balance)	
 			// if (ind1 == 0) && (ind ==2) {
 				log.Print(ind1)
 			// 	s.accounts = append(s.accounts, account)		
@@ -393,7 +385,7 @@ func (s *Service) ImportFromFile(path string) error{
 			// 	s.accounts = append(s.accounts, account)		
 			// } 
 
-		}
+		
 		s.accounts = append(s.accounts, account)
 	}
 	
