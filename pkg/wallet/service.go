@@ -334,12 +334,12 @@ func (s *Service) ImportFromFile(path string) error{
 		
 	}
 
-	defer func() {
-		err := file.Close()
-		if err != nil {
-			log.Print(err)
-		}
-	}()
+	// defer func() {
+	// 	err := file.Close()
+	// 	if err != nil {
+	// 		log.Print(err)
+	// 	}
+	// }()
 
 	log.Printf("%#v", file)
 
@@ -401,7 +401,10 @@ func (s *Service) ImportFromFile(path string) error{
 	//	s.accounts = append(s.accounts, account)
 	}
 	
-	
+	err = file.Close()
+	if err != nil {
+	 	log.Print(err)
+	}
 	return nil
 
 }
