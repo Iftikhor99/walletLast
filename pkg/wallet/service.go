@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"os"
 	"log"
-//	"fmt"
+	"fmt"
 	"github.com/google/uuid"
 	"errors"
 	"github.com/Iftikhor99/wallet/v1/pkg/types"
@@ -357,24 +357,36 @@ func (s *Service) ImportFromFile(path string) error{
 	newData := strings.Split(data, "|")
 	log.Print(data)
 	log.Print(newData)
-	account := &types.Account {
-	}
+	//account := &types.Account {
+	//}
 	
 	for ind1, stroka := range newData {
 		log.Print(stroka)
 			
 		newData2 := strings.Split(stroka, ";")
 		log.Print(newData2[0])
+
+		account, err := s.RegisterAccount (types.Phone(newData2[1]))
+		if err != nil {
+			return	fmt.Errorf("can't register account, error = %v", err)
+		}
+	
+	// MononHsem ero cyéT
+		balance, _ := strconv.ParseInt(newData2[2], 10, 64)
+		err = s.Deposit(account.ID, types.Money(balance))
+		if err != nil {
+			return fmt.Errorf("can't deposity account, error = %v", err)
+		}
 		
 			//	id, _ := strconv.ParseInt(stroka2, 10, 64)
-				account.ID, _ = strconv.ParseInt(newData2[0], 10, 64) 
+			//	account.ID, _ = strconv.ParseInt(newData2[0], 10, 64) 
 		
 			//	account.Phone = types.Phone(stroka2)
-				account.Phone = types.Phone(newData2[1])
+				//account.Phone = types.Phone(newData2[1])
 				//balance, _ := strconv.ParseInt(stroka2, 10, 64)
 				//account.Balance = types.Money(balance)
-				balance, _ := strconv.ParseInt(newData2[2], 10, 64)
-				account.Balance = types.Money(balance)	
+				//balance, _ := strconv.ParseInt(newData2[2], 10, 64)
+			//	account.Balance = types.Money(balance)	
 			// if (ind1 == 0) && (ind ==2) {
 				log.Print(ind1)
 			// 	s.accounts = append(s.accounts, account)		
@@ -386,7 +398,7 @@ func (s *Service) ImportFromFile(path string) error{
 			// } 
 
 		
-		s.accounts = append(s.accounts, account)
+	//	s.accounts = append(s.accounts, account)
 	}
 	
 	
