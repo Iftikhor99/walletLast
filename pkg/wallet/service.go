@@ -394,7 +394,7 @@ func (s *Service) ImportFromFile(path string) error{
 			// } 
 
 		}
-	//	s.accounts = append(s.accounts, account)
+		s.accounts = append(s.accounts, account)
 	}
 	
 	
