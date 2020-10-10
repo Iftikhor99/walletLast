@@ -7,7 +7,7 @@ import (
 //	"io"
 	"log"
 //	"os"
-	"fmt"
+//	"fmt"
 	"github.com/Iftikhor99/wallet/v1/pkg/wallet"
 )
 
@@ -88,20 +88,6 @@ func main() {
 	err = svc.ExportToFile("data/message.txt")
 	log.Print(err)
 
-	err = svc.Deposit(4, 200_000_00)
-	if err != nil {
-		switch err {
-		case wallet.ErrAmountMustBePositive:
-			fmt.Println("Сумма должна быть положительной")
-		case wallet.ErrAccountNotFound:
-			fmt.Println("Аккаунт пользователя не найден")		
-		}		
-		return
-	}
-
-	newP2, ee3 := svc.FindAccountByID(4)
-	fmt.Println(newP2)
-	fmt.Println(ee3)
 	
 
 }
